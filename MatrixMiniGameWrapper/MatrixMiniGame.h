@@ -31,7 +31,7 @@ const int joyMinThreshold = 200;
 const int joyMaxThreshold = 600;
 
 unsigned long joyLastMoveTime = 0;
-const byte joyDebounceDuration = 100;
+const byte joyDebounceDuration = 200;
 const byte defaultPosition = B10000000;
 
 const byte matrixSize = 8;
@@ -84,6 +84,8 @@ void reachFood() {
       currentFoodPositionY == xPosition) {
         score++;
         foodActive = false;
+
+        matrixByte[yPosition] = 0;
     }
 }
 
@@ -154,6 +156,23 @@ void blink() {
     matrixByte[currentFoodPositionX] = matrixByte[currentFoodPositionX] ^ xorByte; 
     ledControl.setRow(0, currentFoodPositionX, matrixByte[currentFoodPositionX]);
   }
+}
+
+void matrixReset() {
+  xPosition = 0;
+  yPosition = 0;
+  xLastPosition = 0;
+  yLastPosition = 0;
+  currentFoodPositionX = 0;
+  currentFoodPositionY = 0;
+
+  for (int i = 0; i < matrixSize; i++) {
+    matrixByte[i] = 0;
+  }
+
+  foodActive = false;
+  matrixChanged = false;
+  joyLastMoveTime = 0;
 }
 
 void MatrixGame() {
