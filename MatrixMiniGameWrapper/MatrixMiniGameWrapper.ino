@@ -111,6 +111,8 @@ void loop() {
       case 3:
         score = 0;
         // matrix variables reset
+        matrixReset();
+        updateMatrix();        
         lcd.clear();
         systemState = 0;
         break;
@@ -119,14 +121,14 @@ void loop() {
 
   switch (systemState) {
     case 0:
-    Serial.println("State 0");
+    // Serial.println("State 0");
       lcd.setCursor(0, 0);
       lcd.write((byte)0);
       lcd.setCursor(1, 0);
       lcd.print("Start");
       break;
     case 1:
-      Serial.println("State 1");
+      // Serial.println("State 1");
       MatrixGame();
       // stop lcd from always writing
       lcd.setCursor(0, 0);
@@ -136,17 +138,16 @@ void loop() {
       delay(150);
       break;
     case 2:
-      Serial.println("State 2");
+      // Serial.println("State 2");
       lcd.setCursor(0, 0);
       lcd.print("Playtime over!");
       lcd.setCursor(6, 1);
       lcd.write((byte)1);
       lcd.setCursor(9, 1);
       lcd.write((byte)2);
-
       break;
     case 3:
-      Serial.println("State 3");
+      // Serial.println("State 3");
       lcd.setCursor(0, 0);
       lcd.print("Score: " + String(score));
       lcd.setCursor(0, 1);
